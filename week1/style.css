@@ -1,0 +1,41 @@
+h1 { 
+    color: blue;
+    font-size: 24px;
+}
+
+article {
+    color: pink;
+    font-weight: 600;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px black;
+}
+
+h2 {
+    color: orange;
+    font-size: 30px;
+}
+
+li:nth-child(2) {
+    color: skyblue;
+    font-size: 20px;
+}
+
+li:nth-child(3) {
+    color: green;
+    font-size: 25px;
+}
+
+li:last-child {
+    font-size: 30px;
+}
+
+ol {
+    color: red;
+    font-size: 20px;
+    background-color: aqua;
+}
+
+ul {
+    color: purple;
+    background-color: yellow;
+}
