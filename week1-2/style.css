@@ -45,7 +45,7 @@ header {
     left: 0;
     right: 0;
     height: 60px;
-    background-color: #fff;
+    background: linear-gradient(to right, rgba(230, 230, 250, 0.8), rgba(211, 211, 211, 0.8));
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -60,11 +60,15 @@ nav {
     left: 0;
     width: 160px;
     height: calc(100vh - 60px);
-    background-color: #333;
-    color: #fff;
+    background: linear-gradient(to bottom, rgba(230, 230, 250, 0.8), rgba(211, 211, 211, 0.8));
+    color: #333;
     padding-top: 10px;
     z-index: 999;
     overflow-y: auto;
+}
+
+section[id] {
+    scroll-margin-top: 80px;
 }
 
 .content-wrapper {
@@ -111,23 +115,32 @@ nav {
     grid-row: 3 / 5;
 }
 
-/* Section Background Container */
 .section-background {
-    background-color: #ffffff; /* 흰색 배경 */
     padding: 40px;
-    border-radius: 15px; /* 둥근 모서리 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* 약간의 그림자 효과 */
-    margin-bottom: 40px; /* 섹션 간 간격 유지 */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+}
+
+#section1 .section-background {
+    background: linear-gradient(to bottom right, rgba(255, 192, 203, 0.4), rgba(255, 223, 230, 0.4));
+}
+
+#section2 .section-background {
+    background: linear-gradient(to bottom right, rgba(173, 216, 230, 0.4), rgba(224, 255, 255, 0.4));
+}
+
+#section3 .section-background {
+    background: linear-gradient(to bottom right, rgba(255, 160, 122, 0.4), rgba(255, 228, 196, 0.4));
 }
 
 .card-section {
-    /* margin-bottom 제거 (section-background에서 처리) */
+
 }
 
 .card-section h2 {
     margin-bottom: 20px;
     font-size: 1.8rem;
-    border-bottom: 2px solid #eee;
     padding-bottom: 10px;
 }
 
@@ -179,7 +192,6 @@ nav {
 .infinite-banner h2 {
      margin-bottom: 20px;
     font-size: 1.8rem;
-    border-bottom: 2px solid #eee;
     padding-bottom: 10px;
 }
 
@@ -217,8 +229,8 @@ nav {
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
+    background: linear-gradient(to right, rgba(230, 230, 250, 0.8), rgba(211, 211, 211, 0.8));
+    color: #333;
     text-align: center;
     padding: 20px;
     margin-top: 40px;
@@ -257,17 +269,17 @@ nav ul {
 
 nav ul li a {
     display: block;
-    padding: 12px 20px;
-    margin-bottom: 5px;
-    color: #eee;
+    padding: 12px 0px;
+    margin: 0 25px 5px 25px;
+    color: #333;
     transition: background-color 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
     border-radius: 0;
     text-align: center;
 }
 
 nav ul li a:hover {
-    background-color: #555;
-    color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000;
     border-radius: 8px;
 }
 
