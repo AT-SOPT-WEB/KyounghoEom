@@ -111,8 +111,17 @@ nav {
     grid-row: 3 / 5;
 }
 
+/* Section Background Container */
+.section-background {
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 40px;
+    border-radius: 15px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* 약간의 그림자 효과 */
+    margin-bottom: 40px; /* 섹션 간 간격 유지 */
+}
+
 .card-section {
-    margin-bottom: 40px;
+    /* margin-bottom 제거 (section-background에서 처리) */
 }
 
 .card-section h2 {
