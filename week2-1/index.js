@@ -14,6 +14,11 @@ todos.forEach((todo) => {
 });
 
 addBtn.addEventListener('click', () => {
+    if (input.value === '') {
+        console.log('Input is empty');
+        return;
+    }
+    
     console.log('Button clicked');
 
     const li = document.createElement('li');
@@ -24,6 +29,9 @@ addBtn.addEventListener('click', () => {
     
     todos.push(input.value);
     localStorage.setItem('todoList', JSON.stringify(todos));
+
+    input.value = '';
+    console.log('Input cleared');
 });
 
 
