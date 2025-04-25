@@ -11,5 +11,8 @@ body {
   font-family: 'Noto Sans KR', Arial, sans-serif;
   background: var(--color-background);
   color: var(--color-primary);
-  min-height: 100vh;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }

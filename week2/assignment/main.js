@@ -290,7 +290,8 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
   }
 
   // XSS 방지용: 사용자 입력을 HTML에 넣을 때 태그로 해석되지 않도록 이스케이프 처리
-  // 예: <script> → <script> (실제 실행 안 됨, 화면에 문자 그대로 노출)
+  // 예를 들어 <script> → <script>
+  // 실제 실행 안 되고 화면에 문자 그대로 노출됨
   function escapeHtml(str) {
     return str.replace(/[&<>"']/g, function (m) {
       return (
@@ -304,7 +305,5 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
       );
     });
   }
-
-  // 최초 실행
   init();
 })();

@@ -1,4 +1,4 @@
-/* 01 변수  */
+/* 01 스타일 변수  */
 :root {
   --color-primary: #333;
   --color-background: #f4f4f4;
@@ -50,6 +50,7 @@
 
 /* 04-1 필터 버튼 영역 */
 .todo-app__filter {
+  position: relative;
   display: flex;
   gap: 0.5rem;
   justify-content: center;
@@ -81,18 +82,21 @@
 .todo-app__priority-dropdown {
   display: none;
   position: absolute;
-  top: 2.5rem;
-  left: 0;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   min-width: 140px;
   background: var(--color-white);
   border: 1px solid #e0e7ef;
   border-radius: var(--border-radius-small);
   box-shadow: 0 2px 8px var(--color-shadow);
+  color: var(--color-hover);
   z-index: 20;
   padding: 0.3rem 0;
   list-style: none;
 }
 .todo-app__priority-dropdown.is-open {
+  margin-top: 0.5rem;
   display: block;
 }
 .todo-app__priority-option {

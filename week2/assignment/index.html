@@ -20,14 +20,14 @@
       <button class="todo-app__filter-btn" data-filter="all">전체</button>
       <button class="todo-app__filter-btn" data-filter="completed">완료됨</button>
       <button class="todo-app__filter-btn" data-filter="active">미완료</button>
-      <button class="todo-app__filter-btn" data-filter="priority" id="priority-filter-btn">
+      <button class="todo-app__filter-btn" data-filter="priority" id="priority-filter-btn" style="position: relative;">
         <i class="fas fa-star"></i> 중요도
+        <ul class="todo-app__priority-dropdown" id="priority-dropdown">
+          <li class="todo-app__priority-option" data-priority="1"><i class="fas fa-star"></i> 1 (높음)</li>
+          <li class="todo-app__priority-option" data-priority="2"><i class="fas fa-star"></i> 2 (중간)</li>
+          <li class="todo-app__priority-option" data-priority="3"><i class="fas fa-star"></i> 3 (낮음)</li>
+        </ul>
       </button>
-      <ul class="todo-app__priority-dropdown" id="priority-dropdown">
-        <li class="todo-app__priority-option" data-priority="1"><i class="fas fa-star"></i> 1 (높음)</li>
-        <li class="todo-app__priority-option" data-priority="2"><i class="fas fa-star"></i> 2 (중간)</li>
-        <li class="todo-app__priority-option" data-priority="3"><i class="fas fa-star"></i> 3 (낮음)</li>
-      </ul>
     </nav>
     <section class="todo-app__section todo-app__add" aria-label="할 일 추가">
       <input type="text" class="todo-app__input" aria-label="할 일 입력" placeholder="할 일을 입력하세요" maxlength="30"/>
