@@ -4,15 +4,15 @@
   --color-background: #f4f4f4;
   --color-white: #fff;
   --color-hover: #222;
-  --color-heart: #e74c3c;
-  --color-heart-inactive: #ccc;
   --color-shadow: rgba(0,0,0,0.08);
   --color-shadow-hover: rgba(0,0,0,0.15);
   --border-radius-small: 0.3125rem;
   --border-radius-medium: 0.5rem;
   --border-radius-large: 0.9375rem;
   --color-btn: #4f8cff;
+  --color-btn-delete: #e74c3c;
   --color-btn-hover: #2563eb;
+  --color-btn-delete-hover: #cb2f1d;
   --color-completed: #aaa;
   --color-table-header: #e0e7ef;
   --color-table-row: #fff;
@@ -75,6 +75,38 @@
 }
 .todo-app__filter-btn i {
   color: #f7b731;
+}
+
+/* 04-1-1 중요도 드롭다운 */
+.todo-app__priority-dropdown {
+  display: none;
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  min-width: 140px;
+  background: var(--color-white);
+  border: 1px solid #e0e7ef;
+  border-radius: var(--border-radius-small);
+  box-shadow: 0 2px 8px var(--color-shadow);
+  z-index: 20;
+  padding: 0.3rem 0;
+  list-style: none;
+}
+.todo-app__priority-dropdown.is-open {
+  display: block;
+}
+.todo-app__priority-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  transition: background 0.15s;
+}
+.todo-app__priority-option:hover,
+.todo-app__priority-option.active {
+  background: var(--color-table-header);
 }
 
 /* 04-2. 할 일 추가 영역 */
@@ -154,8 +186,7 @@
   gap: 0.7rem;
   justify-content: flex-end;
 }
-.todo-app__delete-btn, .todo-app__complete-btn {
-  background: var(--color-btn);
+.todo-app__delete-btn,  .todo-app__complete-btn{
   color: #fff;
   border: none;
   border-radius: var(--border-radius-small);
@@ -164,7 +195,18 @@
   cursor: pointer;
   transition: background 0.2s;
 }
-.todo-app__delete-btn:hover, .todo-app__complete-btn:hover {
+
+.todo-app__delete-btn{
+  background: var(--color-btn-delete);
+}
+.todo-app__delete-btn:hover {
+  background: var(--color-btn-delete-hover);
+}
+
+.todo-app__complete-btn {
+  background: var(--color-btn);
+}
+.todo-app__complete-btn:hover {
   background: var(--color-btn-hover);
 }
 

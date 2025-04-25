@@ -2,6 +2,9 @@
 const STORAGE_KEY = 'todos';
 const $tbody = document.querySelector('.todo-app__tbody');
 const $filterBtns = document.querySelectorAll('.todo-app__filter-btn');
+const $priorityFilterBtn = document.getElementById('priority-filter-btn');
+const $priorityDropdown = document.getElementById('priority-dropdown');
+const $priorityOptions = $priorityDropdown ? $priorityDropdown.querySelectorAll('.todo-app__priority-option') : [];
 const $addBtn = document.querySelector('.todo-app__add-btn');
 const $todoInput = document.querySelector('.todo-app__input');
 const $prioritySelect = document.querySelector('.todo-app__priority-select');
@@ -13,6 +16,7 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
   let todos = [];
   let filter = 'all';
   let priorityFilter = null;
+  let dropdownOpen = false;
 
   // 초기화
   function init() {
@@ -23,6 +27,17 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
     todos = getTodos();
     render();
     bindEvents();
+  }
+
+  // 드롭다운 열기/닫기
+  function togglePriorityDropdown(open) {
+    if (!$priorityDropdown) return;
+    dropdownOpen = open !== undefined ? open : !dropdownOpen;
+    if (dropdownOpen) {
+      $priorityDropdown.classList.add('is-open');
+    } else {
+      $priorityDropdown.classList.remove('is-open');
+    }
   }
 
   // localStorage에서 todos 가져오기
@@ -65,7 +80,7 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
       btn.classList.toggle('active', btn.dataset.filter === filter);
     });
 
-    // 테이블 렌더링 (템플릿 활용)
+    // 테이블 렌더링
     const list = getFilteredTodos();
     $tbody.innerHTML = '';
     const tpl = document.getElementById('todo-row');
@@ -89,16 +104,66 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
       frag.appendChild(clone);
     });
     $tbody.appendChild(frag);
+    syncSelectAll();
   }
+
+  // 전체선택 체크박스 상태 동기화
+  function syncSelectAll() {
+    const $selectAll = document.querySelector('.todo-app__select-all');
+    if (!$selectAll) return;
+    const list = getFilteredTodos();
+    if (list.length === 0) {
+      $selectAll.checked = false;
+      $selectAll.indeterminate = false;
+      return;
+    }
+    const checkedCount = list.filter(t => t.checked).length;
+    $selectAll.checked = checkedCount === list.length;
+    $selectAll.indeterminate = checkedCount > 0 && checkedCount < list.length;
+  }
+
+  // 드래그&드롭 순서 변경
+  let dragTodoId = null;
 
   // 이벤트 바인딩
   function bindEvents() {
     // 필터 버튼
     $filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        filter = btn.dataset.filter;
-        render();
+      btn.addEventListener('click', (e) => {
+        // 중요도 버튼은 드롭다운 토글만
+        if (btn.dataset.filter === 'priority') {
+          togglePriorityDropdown();
+        } else {
+          filter = btn.dataset.filter;
+          priorityFilter = null;
+          render();
+          togglePriorityDropdown(false);
+        }
       });
+    });
+
+    // 드롭다운 옵션 클릭
+    if ($priorityOptions) {
+      $priorityOptions.forEach((opt) => {
+        opt.addEventListener('click', (e) => {
+          const prio = Number(opt.dataset.priority);
+          priorityFilter = prio;
+          filter = 'priority';
+          render();
+          togglePriorityDropdown(false);
+        });
+      });
+    }
+
+    // 외부 클릭 시 드롭다운 닫기
+    document.addEventListener('mousedown', (e) => {
+      if (
+        $priorityDropdown &&
+        !e.target.closest('#priority-dropdown') &&
+        !e.target.closest('#priority-filter-btn')
+      ) {
+        togglePriorityDropdown(false);
+      }
     });
 
     // 추가 버튼
@@ -117,8 +182,52 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
           t.id === id ? { ...t, checked: e.target.checked } : t
         );
         setTodos(todos);
+        // 개별 체크박스 변경 시 전체선택 체크박스 상태 동기화
+        syncSelectAll();
       }
     });
+
+    // 드래그&드롭 (이벤트 위임 방식)
+    $tbody.addEventListener('dragstart', (e) => {
+      const tr = e.target.closest('tr[draggable="true"]');
+      if (!tr) return;
+      const $rowCheckbox = tr.querySelector('.row-checkbox');
+      if ($rowCheckbox) {
+        dragTodoId = Number($rowCheckbox.dataset.id);
+      }
+    });
+    $tbody.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+    $tbody.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const tr = e.target.closest('tr[draggable="true"]');
+      if (!tr || dragTodoId === null) return;
+      const $rowCheckbox = tr.querySelector('.row-checkbox');
+      if (!$rowCheckbox) return;
+      const dropTodoId = Number($rowCheckbox.dataset.id);
+      if (dragTodoId === dropTodoId) return;
+      // todos 배열에서 dragTodoId를 dropTodoId 위치로 이동
+      const fromIdx = todos.findIndex(t => t.id === dragTodoId);
+      const toIdx = todos.findIndex(t => t.id === dropTodoId);
+      if (fromIdx === -1 || toIdx === -1) return;
+      const moved = todos.splice(fromIdx, 1)[0];
+      todos.splice(toIdx, 0, moved);
+      setTodos(todos);
+      render();
+      dragTodoId = null;
+    });
+
+    // 전체선택 체크박스
+    const $selectAll = document.querySelector('.todo-app__select-all');
+    if ($selectAll) {
+      $selectAll.addEventListener('change', (e) => {
+        const checked = $selectAll.checked;
+        todos = todos.map((t) => ({ ...t, checked }));
+        setTodos(todos);
+        render();
+      });
+    }
 
     // 삭제 버튼
     $deleteBtn.addEventListener('click', onDelete);
@@ -167,7 +276,7 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
   function onComplete() {
     const checked = todos.filter((t) => t.checked);
     if (!checked.length) return;
-    // 이미 완료된 todo가 하나라도 있으면 모달
+    // 이미 완료된 todo가 하나라도 있으면 모달 띄우기
     if (checked.some((t) => t.completed)) {
       $modal.classList.remove('hidden');
       return;
@@ -180,7 +289,8 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
     render();
   }
 
-  // HTML 이스케이프
+  // XSS 방지용: 사용자 입력을 HTML에 넣을 때 태그로 해석되지 않도록 이스케이프 처리
+  // 예: <script> → <script> (실제 실행 안 됨, 화면에 문자 그대로 노출)
   function escapeHtml(str) {
     return str.replace(/[&<>"']/g, function (m) {
       return (

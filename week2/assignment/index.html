@@ -20,17 +20,22 @@
       <button class="todo-app__filter-btn" data-filter="all">전체</button>
       <button class="todo-app__filter-btn" data-filter="completed">완료됨</button>
       <button class="todo-app__filter-btn" data-filter="active">미완료</button>
-      <button class="todo-app__filter-btn" data-filter="priority">
+      <button class="todo-app__filter-btn" data-filter="priority" id="priority-filter-btn">
         <i class="fas fa-star"></i> 중요도
       </button>
+      <ul class="todo-app__priority-dropdown" id="priority-dropdown">
+        <li class="todo-app__priority-option" data-priority="1"><i class="fas fa-star"></i> 1 (높음)</li>
+        <li class="todo-app__priority-option" data-priority="2"><i class="fas fa-star"></i> 2 (중간)</li>
+        <li class="todo-app__priority-option" data-priority="3"><i class="fas fa-star"></i> 3 (낮음)</li>
+      </ul>
     </nav>
     <section class="todo-app__section todo-app__add" aria-label="할 일 추가">
       <input type="text" class="todo-app__input" aria-label="할 일 입력" placeholder="할 일을 입력하세요" maxlength="30"/>
       <select class="todo-app__priority-select" aria-label="중요도 선택">
         <option value="">중요도 선택</option>
-        <option value="1">1 (높음)</option>
+        <option value="3">3 (높음)</option>
         <option value="2">2 (중간)</option>
-        <option value="3">3 (낮음)</option>
+        <option value="1">1 (낮음)</option>
       </select>
       <button class="todo-app__add-btn" aria-label="할 일 추가">추가</button>
     </section>
@@ -38,19 +43,20 @@
       <table class="todo-app__table-table">
         <thead>
           <tr>
-            <th></th>
+            <th>
+              <input type="checkbox" class="todo-app__select-all" aria-label="전체 선택">
+            </th>
             <th>할 일</th>
             <th>중요도</th>
             <th>완료</th>
           </tr>
         </thead>
         <template id="todo-row">
-          <tr>
+          <tr draggable="true">
             <td>
               <input type="checkbox" class="row-checkbox" data-id="">
             </td>
             <td class="">
-              <!-- 할 일 제목 -->
             </td>
             <td>
               <span class="priority-icon"></span>
