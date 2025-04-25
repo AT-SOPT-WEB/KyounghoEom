@@ -2,7 +2,6 @@
 const STORAGE_KEY = 'todos';
 const $tbody = document.querySelector('.todo-app__tbody');
 const $filterBtns = document.querySelectorAll('.todo-app__filter-btn');
-const $priorityFilterBtn = document.getElementById('priority-filter-btn');
 const $priorityDropdown = document.getElementById('priority-dropdown');
 const $priorityOptions = $priorityDropdown ? $priorityDropdown.querySelectorAll('.todo-app__priority-option') : [];
 const $addBtn = document.querySelector('.todo-app__add-btn');
@@ -287,23 +286,6 @@ const $modalCloseBtn = document.querySelector('.todo-app__modal-close-btn');
       )
     );
     render();
-  }
-
-  // XSS 방지용: 사용자 입력을 HTML에 넣을 때 태그로 해석되지 않도록 이스케이프 처리
-  // 예를 들어 <script> → <script>
-  // 실제 실행 안 되고 화면에 문자 그대로 노출됨
-  function escapeHtml(str) {
-    return str.replace(/[&<>"']/g, function (m) {
-      return (
-        {
-          '&': '&',
-          '<': '<',
-          '>': '>',
-          '"': '"',
-          "'": '&#39;',
-        }[m] || m
-      );
-    });
   }
   init();
 })();
