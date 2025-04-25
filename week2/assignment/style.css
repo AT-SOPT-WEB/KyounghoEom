@@ -1,0 +1,204 @@
+/* 01 변수  */
+:root {
+  --color-primary: #333;
+  --color-background: #f4f4f4;
+  --color-white: #fff;
+  --color-hover: #222;
+  --color-heart: #e74c3c;
+  --color-heart-inactive: #ccc;
+  --color-shadow: rgba(0,0,0,0.08);
+  --color-shadow-hover: rgba(0,0,0,0.15);
+  --border-radius-small: 0.3125rem;
+  --border-radius-medium: 0.5rem;
+  --border-radius-large: 0.9375rem;
+  --color-btn: #4f8cff;
+  --color-btn-hover: #2563eb;
+  --color-completed: #aaa;
+  --color-table-header: #e0e7ef;
+  --color-table-row: #fff;
+  --color-table-row-alt: #f7faff;
+}
+
+/* 02 공용 유틸 -> 섹션 공통 여백 */
+.todo-app__section {
+  scroll-margin-top: 5rem;
+}
+
+/* 03 레이아웃 -> 전체 틀, 헤더 */
+.todo-app {
+  max-width: 480px;
+  margin: 2rem auto;
+  background: var(--color-white);
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 2px 12px var(--color-shadow);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+}
+
+.todo-app__section {
+  scroll-margin-top: 5rem;
+}
+
+.todo-app__header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.todo-app__header-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* 04-1 필터 버튼 영역 */
+.todo-app__filter {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+.todo-app__filter-btn {
+  background: var(--color-table-header);
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.todo-app__filter-btn.active,
+.todo-app__filter-btn:hover {
+  background: var(--color-btn);
+  color: #fff;
+}
+.todo-app__filter-btn i {
+  color: #f7b731;
+}
+
+/* 04-2. 할 일 추가 영역 */
+.todo-app__add {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  justify-content: center;
+}
+.todo-app__input {
+  flex: 2;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-small);
+  font-size: 1rem;
+}
+.todo-app__priority-select {
+  flex: 1;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-small);
+  font-size: 1rem;
+}
+.todo-app__add-btn {
+  background: var(--color-btn);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.todo-app__add-btn:hover {
+  background: var(--color-btn-hover);
+}
+
+/* 04-3 할 일 목록 */
+.todo-app__table {
+  margin-bottom: 1.2rem;
+}
+.todo-app__table-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-table-row);
+  border-radius: var(--border-radius-medium);
+  overflow: hidden;
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
+.todo-app__table-table th, .todo-app__table-table td {
+  padding: 0.7rem 0.5rem;
+  text-align: center;
+}
+.todo-app__table-table th {
+  background: var(--color-table-header);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.todo-app__table-table tr:nth-child(even) {
+  background: var(--color-table-row-alt);
+}
+.todo-app__table-table td {
+  font-size: 1rem;
+}
+.todo-app__table-table .priority-icon {
+  color: #f7b731;
+  font-size: 1.1rem;
+}
+.todo-app__table-table .completed {
+  color: var(--color-completed);
+  text-decoration: line-through;
+}
+
+/* 04-4 액션 버튼 영역 */
+.todo-app__actions {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
+}
+.todo-app__delete-btn, .todo-app__complete-btn {
+  background: var(--color-btn);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.todo-app__delete-btn:hover, .todo-app__complete-btn:hover {
+  background: var(--color-btn-hover);
+}
+
+/* 04-5 모달 */
+.todo-app__modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.todo-app__modal.hidden {
+  display: none;
+}
+.todo-app__modal-content {
+  background: var(--color-white);
+  border-radius: var(--border-radius-medium);
+  box-shadow: 0 2px 12px var(--color-shadow-hover);
+  padding: 2rem 2.5rem;
+  text-align: center;
+}
+.todo-app__modal-close-btn {
+  margin-top: 1rem;
+  background: var(--color-btn);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.todo-app__modal-close-btn:hover {
+  background: var(--color-btn-hover);
+}
