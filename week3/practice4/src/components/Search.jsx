@@ -1,3 +1,37 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+
+const searchSectionStyle = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+`
+
+const buttonStyle = css`
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+        background-color: #0056b3;
+    }
+`;
+
+const inputStyle = css`
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    &:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+`;
+
 const Search = ({ search, handleSearchChange, handleSearch }) => {
 
 // Search 컴포넌트는 검색어를 입력받는 input 요소를 렌더링
@@ -6,14 +40,15 @@ const Search = ({ search, handleSearchChange, handleSearch }) => {
 // 이 객체에서 실제 입력값(e.target.value)을 꺼내서 부모에게 전달해야 함
 
     return (
-        <div>
+        <div css={searchSectionStyle}>
             <input
+                css={inputStyle}
                 type="text"
                 value={search}
                 onChange={handleSearchChange}
                 placeholder="검색"
             />
-            <button onClick={handleSearch}>검색</button>
+            <button css={buttonStyle} onClick={handleSearch}>검색</button>
         </div>
     );
 }
