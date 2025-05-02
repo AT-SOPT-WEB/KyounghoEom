@@ -11,10 +11,20 @@ const GithubSearch: React.FC = () => {
     localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
   }, [recentSearches]);
 
+  const handleSearch = (user: string) => {
+    console.log('search:', user);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('search:', username); 
-    setRecentSearches(prev => [...prev, username]);
+    if (!username) return;
+    handleSearch(username);
+    setRecentSearches(prev => {
+      if (prev.includes(username)) return prev;
+      const updated = [...prev, username];
+      return updated.length > 3 ? updated.slice(updated.length - 3) : updated;
+    });
+    setUsername('');
   };
 
   const handleDelete = (name: string) => {
@@ -34,8 +44,8 @@ const GithubSearch: React.FC = () => {
       <ul>
         {recentSearches.map(name => (
           <li key={name}>
-            {name}
-            <button onClick={() => handleDelete(name)}>x</button>
+            <button type="button" onClick={() => handleSearch(name)}>{name}</button>
+            <button type="button" onClick={() => handleDelete(name)}>x</button>
           </li>
         ))}
       </ul>
