@@ -73,7 +73,7 @@ const GithubSearch: React.FC = () => {
           <img src={userInfo.data.avatar_url} alt="avatar" className="profile-avatar" />
           <p className="profile-name">{userInfo.data.name}</p>
           <p>아이디: {userInfo.data.login}</p>
-          <p>한 줄소개: {userInfo.data.bio}</p>
+          <p>한 줄 소개: {userInfo.data.bio}</p>
           <p>팔로워: {userInfo.data.followers}</p>
           <p>팔로잉: {userInfo.data.following}</p>
           <p><a href={userInfo.data.html_url} target="_blank" rel="noopener noreferrer">{userInfo.data.html_url}</a></p>

@@ -42,12 +42,12 @@ const NumberBaseball: React.FC = () => {
     if (tries >= 10) return
 
     if (!/^\d{3}$/.test(guess)) {
-      setMessage('숫자 3글자 입력해')
+      setMessage('숫자 3글자를 입력하세요')
       setGuess('')
       return
     }
     if (new Set(guess).size !== 3) {
-      setMessage('중복 없이 3글자 입력해')
+      setMessage('중복 없이 3글자를 입력하세요')
       setGuess('')
       return
     }
