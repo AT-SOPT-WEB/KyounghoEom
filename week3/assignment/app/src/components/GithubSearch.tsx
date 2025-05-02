@@ -62,6 +62,7 @@ const GithubSearch: React.FC = () => {
           </li>
         ))}
       </ul>
+      {userInfo.status === 'idle' && <div>검색어를 입력해주세요</div>}
       {userInfo.status === 'pending' && <div>로딩중...</div>}
       {userInfo.status === 'rejected' && <div>검색 결과를 찾을 수 없습니다</div>}
       {userInfo.status === 'resolved' && userInfo.data && (
