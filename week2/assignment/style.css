@@ -1,4 +1,4 @@
-/* 01 스타일 변수  */
+/* 01 스타일 변수 */
 :root {
   --color-primary: #333;
   --color-background: #f4f4f4;
@@ -19,12 +19,12 @@
   --color-table-row-alt: #f7faff;
 }
 
-/* 02 공용 유틸 -> 섹션 공통 여백 */
+/* 02 공용 유틸 */
 .todo-app__section {
   scroll-margin-top: 5rem;
 }
 
-/* 03 레이아웃 -> 전체 틀, 헤더 */
+/* 03 레이아웃 */
 .todo-app {
   max-width: 480px;
   margin: 2rem auto;
@@ -32,10 +32,6 @@
   border-radius: var(--border-radius-large);
   box-shadow: 0 2px 12px var(--color-shadow);
   padding: 2rem 1.5rem 1.5rem 1.5rem;
-}
-
-.todo-app__section {
-  scroll-margin-top: 5rem;
 }
 
 .todo-app__header {
