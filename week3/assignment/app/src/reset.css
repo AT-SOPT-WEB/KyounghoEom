@@ -1,0 +1,12 @@
+/* reset.css */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 기본 폰트와 텍스트 중앙 정렬 */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  text-align: center;
+} 
