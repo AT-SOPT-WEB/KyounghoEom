@@ -6,13 +6,26 @@ const GithubSearch: React.FC = () => {
     const stored = localStorage.getItem('recentSearches');
     return stored ? JSON.parse(stored) : [];
   });
+  const [userInfo, setUserInfo] = useState<{ status: 'idle'|'pending'|'resolved'|'rejected'; data: any }>({ status: 'idle', data: null });
 
   useEffect(() => {
     localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
   }, [recentSearches]);
 
+  const getUserInfo = async (user: string) => {
+    setUserInfo({ status: 'pending', data: null });
+    try {
+      const response = await fetch(`https://api.github.com/users/${user}`);
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      setUserInfo({ status: 'resolved', data });
+    } catch {
+      setUserInfo({ status: 'rejected', data: null });
+    }
+  };
+
   const handleSearch = (user: string) => {
-    console.log('search:', user);
+    getUserInfo(user);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,6 +62,20 @@ const GithubSearch: React.FC = () => {
           </li>
         ))}
       </ul>
+      {userInfo.status === 'pending' && <div>로딩중...</div>}
+      {userInfo.status === 'rejected' && <div>검색 결과를 찾을 수 없습니다</div>}
+      {userInfo.status === 'resolved' && userInfo.data && (
+        <div>
+          <button type="button" onClick={() => setUserInfo({ status: 'idle', data: null })}>x</button>
+          <img src={userInfo.data.avatar_url} alt="avatar" />
+          <p>{userInfo.data.name}</p>
+          <p>아이디: {userInfo.data.login}</p>
+          <p>한 줄소개: {userInfo.data.bio}</p>
+          <p>팔로워: {userInfo.data.followers}</p>
+          <p>팔로잉: {userInfo.data.following}</p>
+          <p><a href={userInfo.data.html_url} target="_blank" rel="noopener noreferrer">{userInfo.data.html_url}</a></p>
+        </div>
+      )}
     </div>
   );
 };
