@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from './Spinner';
+import './GithubSearch.css';
 
 const GithubSearch: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -67,10 +68,10 @@ const GithubSearch: React.FC = () => {
       {userInfo.status === 'pending' && <Spinner />}
       {userInfo.status === 'rejected' && <div>검색 결과를 찾을 수 없습니다</div>}
       {userInfo.status === 'resolved' && userInfo.data && (
-        <div>
-          <button type="button" onClick={() => setUserInfo({ status: 'idle', data: null })}>x</button>
-          <img src={userInfo.data.avatar_url} alt="avatar" />
-          <p>{userInfo.data.name}</p>
+        <div className="github-profile-card">
+          <button type="button" className="close-btn" onClick={() => setUserInfo({ status: 'idle', data: null })}>×</button>
+          <img src={userInfo.data.avatar_url} alt="avatar" className="profile-avatar" />
+          <p className="profile-name">{userInfo.data.name}</p>
           <p>아이디: {userInfo.data.login}</p>
           <p>한 줄소개: {userInfo.data.bio}</p>
           <p>팔로워: {userInfo.data.followers}</p>
