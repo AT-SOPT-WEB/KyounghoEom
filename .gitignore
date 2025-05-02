@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 .cursor/
-copilot-instructions.md
+.github/

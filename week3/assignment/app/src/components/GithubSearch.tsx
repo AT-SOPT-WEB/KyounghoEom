@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Spinner from './Spinner';
 
 const GithubSearch: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -63,7 +64,7 @@ const GithubSearch: React.FC = () => {
         ))}
       </ul>
       {userInfo.status === 'idle' && <div>검색어를 입력해주세요</div>}
-      {userInfo.status === 'pending' && <div>로딩중...</div>}
+      {userInfo.status === 'pending' && <Spinner />}
       {userInfo.status === 'rejected' && <div>검색 결과를 찾을 수 없습니다</div>}
       {userInfo.status === 'resolved' && userInfo.data && (
         <div>
@@ -81,4 +82,4 @@ const GithubSearch: React.FC = () => {
   );
 };
 
-export default GithubSearch; 
+export default GithubSearch;
