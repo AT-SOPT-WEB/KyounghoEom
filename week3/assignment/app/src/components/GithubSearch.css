@@ -1,0 +1,53 @@
+.github-profile-card {
+  position: relative;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  max-width: 360px;
+  margin: 2rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.15s;
+  z-index: 2;
+}
+.close-btn:hover {
+  color: #1976d2;
+  background: none;
+}
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.profile-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+input[placeholder="깃허브 아이디를 입력하세요"] {
+  min-width: 250px;
+  max-width: 320px;
+  width: 100%;
+  font-size: 1.05rem;
+  padding: 0.75rem 1.2rem;
+  box-sizing: border-box;
+}
