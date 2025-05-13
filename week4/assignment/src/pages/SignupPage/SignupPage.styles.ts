@@ -37,6 +37,7 @@ export const signupButtonStyle = (theme: Theme) => css`
   &:hover {
     background-color: ${theme.colors.secondary};
   }
+  border-radius: ${theme.borderRadius};
 `;
 
 export const backButtonStyle = (theme: Theme) => css`

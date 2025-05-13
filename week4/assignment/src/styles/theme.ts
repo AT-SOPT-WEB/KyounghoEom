@@ -10,7 +10,7 @@ export const theme = {
   sizes: {
     fullWidth: '100%',
     fullHeight: '100vh',
-    inputWidth: '300px',
+    inputWidth: '320px',
     buttonWidth: '320px',
   },
   spacing: {
