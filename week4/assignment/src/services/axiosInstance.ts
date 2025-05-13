@@ -8,18 +8,29 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('userId');
-    if (token && config.headers) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    console.log(
+      `[API Request] ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`,
+      config.data
+    );
+    const userId = localStorage.getItem('userId');
+    if (userId && config.headers) {
+      config.headers['userId'] = userId;
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.error('[API Request Error]', error);
+    return Promise.reject(error);
+  }
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log(`[API Response] ${response.config.method?.toUpperCase()} ${response.config.baseURL}${response.config.url}`, response.data);
+    return response;
+  },
   (error) => {
+    console.error('[API Error]', error.response?.status, error.config?.method?.toUpperCase(), error.config?.url, error.response?.data);
     if (error.response?.status === 401) {
       localStorage.removeItem('userId');
       window.location.href = '/login';

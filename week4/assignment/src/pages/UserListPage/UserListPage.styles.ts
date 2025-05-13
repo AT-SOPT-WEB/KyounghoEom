@@ -5,8 +5,8 @@ export const headerStyle = (theme: Theme) => css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: ${theme.sizes.fullWidth};
-  padding: ${theme.spacing.small} ${theme.spacing.large};
+  width: 100%;
+  padding: ${theme.spacing.large} ${theme.spacing.large};
   background-color: ${theme.colors.primary};
 `;
 
@@ -28,7 +28,7 @@ export const containerStyle = (theme: Theme) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: ${theme.sizes.fullWidth};
+  width: 100%;
   padding: ${theme.spacing.medium};
   background-color: ${theme.colors.background};
 `;

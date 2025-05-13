@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SignupStep } from '../pages/SignupPage/types/SignupStep.enum';
-import { saveUser } from '../services/userService';
+import axios from 'axios';
+import { signUp } from '../services/userApi';
 
 export function useSignupForm(onBack: () => void) {
   const [step, setStep] = useState<SignupStep>(SignupStep.EnterId);
@@ -39,16 +40,20 @@ export function useSignupForm(onBack: () => void) {
   };
   const prevLabel = prevLabelMap[step];
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!nickname) {
       alert('닉네임을 입력하세요');
       return;
     }
     try {
-      saveUser(id, password, nickname);
-    } catch (error) {
+      await signUp(id, password, nickname);
+    } catch (error: any) {
       console.error(error);
-      alert('회원가입에 실패했습니다.');
+      if (axios.isAxiosError(error) && error.response?.status === 409) {
+        alert('이미 사용 중인 아이디입니다');
+      } else {
+        alert(`회원가입에 실패했습니다: ${error.message}`);
+      }
       return;
     }
     alert('회원가입이 완료되었습니다');

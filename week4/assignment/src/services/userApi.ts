@@ -22,13 +22,13 @@ export const signUp = async (loginId: string, password: string, nickname: string
 };
 
 // 로그인
-export const signIn = async (loginId: string, password: string): Promise<string> => {
-  const res = await axiosInstance.post<ApiResponse<{ token: string }>>(
+export const signIn = async (loginId: string, password: string): Promise<number> => {
+  const res = await axiosInstance.post<ApiResponse<{ userId: number }>>(
     '/api/v1/auth/signin',
     { loginId, password }
   );
   if (!res.data.success) throw new Error(res.data.message);
-  return res.data.data.token;
+  return res.data.data.userId;
 };
 
 // 내 닉네임 조회

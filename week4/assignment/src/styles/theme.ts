@@ -5,6 +5,7 @@ export const theme = {
     text: '#333333',
     background: '#f5f5f5',
     white: '#ffffff',
+    divider: '#e0e0e0',
   },
   sizes: {
     fullWidth: '100vw',

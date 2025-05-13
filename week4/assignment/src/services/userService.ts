@@ -17,5 +17,3 @@ export const loginUser = (id: string, password: string): boolean => {
 export const setCurrentUser = (id: string): void => {
   localStorage.setItem('userId', id);
 };
-
-// 추가적으로 필요 시 getUser, removeUser 등의 함수도 이곳에 구현 가능합니다. 
