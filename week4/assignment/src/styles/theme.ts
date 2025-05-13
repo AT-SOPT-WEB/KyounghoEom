@@ -22,5 +22,5 @@ export const theme = {
     input: '1rem',
     message: '1.2rem',
   },
-  borderRadius: '4px',
+  borderRadius: '8px',
 };

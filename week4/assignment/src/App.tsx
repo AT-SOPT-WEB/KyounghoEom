@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoginPage from './pages/LoginPage/LoginPage.index';
-import SignupPage from './pages/SignupPage/SignupPage.index';
+import SignupPage from './pages/SignupPage';
 import Mypage from './pages/Mypage/MyPage.index';
 
 const App: React.FC = () => {

@@ -35,4 +35,5 @@ export const buttonStyle = (theme: Theme) => css`
   &:hover {
     background-color: ${theme.colors.secondary};
   }
+  border-radius: ${theme.borderRadius};
 `; 
