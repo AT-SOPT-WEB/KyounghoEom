@@ -47,5 +47,10 @@
 - **설정**
   - `tsconfig.app.json`에 `jsxImportSource: '@emotion/react'` 설정으로 자동 JSX 변환 지원
 
+## 5. 매직 넘버 제거
+- 회원가입 단계(step) 관리를 위해 `SignupStep` enum 도입
+  - `SignupStep.EnterId`, `SignupStep.EnterPassword`로 단계 구분
+  - 매직 넘버(0,1) 대신 의미 있는 상수 사용으로 가독성·유지보수성 향상
+
 ---
 
