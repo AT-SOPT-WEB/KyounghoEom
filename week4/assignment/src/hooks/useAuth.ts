@@ -3,12 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function useAuth() {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem('userId');
-    if (stored) setUserId(stored);
-  }, []);
+  const [userId, setUserId] = useState<string | null>(() => localStorage.getItem('userId'));
 
   const login = useCallback((id: string) => {
     localStorage.setItem('userId', id);
