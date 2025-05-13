@@ -26,4 +26,26 @@ export const backButtonStyle = (theme: Theme) => css`
   &:hover {
     background-color: ${theme.colors.primary};
   }
+`;
+
+export const inputStyle = css`
+  width: 300px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+`;
+
+export const signupButtonStyle = (theme: Theme) => css`
+  width: 320px;
+  padding: 0.7rem;
+  background-color: ${theme.colors.primary};
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  &:hover {
+    background-color: ${theme.colors.secondary};
+  }
 `; 
