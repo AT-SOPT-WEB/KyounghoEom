@@ -30,7 +30,7 @@ export const signupButtonStyle = (theme: Theme) => css`
   width: ${theme.sizes.buttonWidth};
   padding: ${theme.spacing.small};
   background-color: ${theme.colors.primary};
-  color: #fff;
+  color: ${theme.colors.white};
   border: none;
   cursor: pointer;
   margin-bottom: ${theme.spacing.small};
@@ -42,7 +42,7 @@ export const signupButtonStyle = (theme: Theme) => css`
 export const backButtonStyle = (theme: Theme) => css`
   padding: ${theme.spacing.small} ${theme.spacing.large};
   background-color: ${theme.colors.secondary};
-  color: #fff;
+  color: ${theme.colors.white};
   border: none;
   cursor: pointer;
   &:hover {

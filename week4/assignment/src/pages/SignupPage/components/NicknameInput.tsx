@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTheme } from '@emotion/react';
 import { inputStyle, signupButtonStyle } from '../SignupPage.styles';
-import type { NicknameStepProps } from '../interfaces/NicknameStep.interface';
+import type { NicknameInputProps } from '../interfaces/SignupStepProps';
 
-const NicknameStep: React.FC<NicknameStepProps> = ({ nickname, onChangeNickname, onComplete }) => {
+const NicknameInput: React.FC<NicknameInputProps> = ({ nickname, onChangeNickname, onComplete }) => {
   const theme = useTheme();
   const disabled = !nickname;
 
@@ -27,4 +27,4 @@ const NicknameStep: React.FC<NicknameStepProps> = ({ nickname, onChangeNickname,
   );
 };
 
-export default NicknameStep; 
+export default NicknameInput; 

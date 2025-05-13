@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTheme } from '@emotion/react';
 import { inputStyle, signupButtonStyle } from '../SignupPage.styles';
-import type { IdStepProps } from '../interfaces/IdStep.interface';
+import type { UsernameInputProps } from '../interfaces/SignupStepProps';
 
-const IdStep: React.FC<IdStepProps> = ({ id, onChange, onNext }) => {
+const UsernameInput: React.FC<UsernameInputProps> = ({ id, onChange, onNext }) => {
   const theme = useTheme();
   return (
     <>
@@ -25,4 +25,4 @@ const IdStep: React.FC<IdStepProps> = ({ id, onChange, onNext }) => {
   );
 };
 
-export default IdStep; 
+export default UsernameInput; 

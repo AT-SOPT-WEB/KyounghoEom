@@ -1,18 +1,19 @@
 import React from 'react';
 import { useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 import {
   containerStyle,
   titleStyle,
   backButtonStyle,
 } from './SignupPage.styles';
-import type { SignupPageProps } from './interfaces/SignupPage.interface';
 import { useSignupForm } from '../../hooks/useSignupForm';
-import IdStep from './components/IdStep';
-import PasswordStep from './components/PasswordStep';
-import NicknameStep from './components/NicknameStep';
+import UsernameInput from './components/UsernameInput';
+import PasswordConfirmation from './components/PasswordConfirmation';
+import NicknameInput from './components/NicknameInput';
 
-const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
+const SignupPage: React.FC = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const {
     id, setId,
     password, setPassword,
@@ -25,14 +26,14 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
     prevStep,
     prevLabel,
     handleRegister,
-  } = useSignupForm(onBack);
+  } = useSignupForm(() => navigate('/login'));
 
   return (
     <div css={containerStyle(theme)}>
       <h1 css={titleStyle(theme)}>회원가입</h1>
-      {isIdStep && <IdStep id={id} onChange={setId} onNext={nextStep} />}
+      {isIdStep && <UsernameInput id={id} onChange={setId} onNext={nextStep} />}
       {isPasswordStep && (
-        <PasswordStep
+        <PasswordConfirmation
           password={password}
           confirm={confirm}
           onChangePassword={setPassword}
@@ -41,7 +42,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
         />
       )}
       {isNicknameStep && (
-        <NicknameStep
+        <NicknameInput
           nickname={nickname}
           onChangeNickname={setNickname}
           onComplete={handleRegister}

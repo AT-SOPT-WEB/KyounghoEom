@@ -1,39 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import LoginPage from './pages/LoginPage/LoginPage.index';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import Mypage from './pages/Mypage/MyPage.index';
+import Mypage from './pages/Mypage';
+import { useAuth } from './hooks/useAuth';
 
 const App: React.FC = () => {
-  const [page, setPage] = useState<'login' | 'signup' | 'mypage'>('login');
-  const [userId, setUserId] = useState<string>('');
-
-  useEffect(() => {
-    const stored = localStorage.getItem('userId');
-    if (stored) {
-      setUserId(stored);
-      setPage('mypage');
-    }
-  }, []);
-
-  const handleLoginSuccess = (id: string) => {
-    setUserId(id);
-    setPage('mypage');
-  };
-
-  const handleNavigateSignup = () => {
-    setPage('signup');
-  };
-
-  const handleBackToLogin = () => {
-    setPage('login');
-  };
+  const { userId, login, logout } = useAuth();
 
   return (
-    <>
-      {page === 'login' && <LoginPage onLoginSuccess={handleLoginSuccess} onNavigateSignup={handleNavigateSignup} />}
-      {page === 'signup' && <SignupPage onBack={handleBackToLogin} />}
-      {page === 'mypage' && <Mypage userId={userId} />}
-    </>
+    <Routes>
+      <Route path="/login" element={<LoginPage onLoginSuccess={login} />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route
+        path="/mypage"
+        element={
+          userId ? (
+            <Mypage
+              userId={userId}
+              onLogout={logout}
+              onNavigateInfo={() => {}}
+              onNavigateUserList={() => {}}
+            />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route path="*" element={<Navigate to={userId ? '/mypage' : '/login'} />} />
+    </Routes>
   );
 };
 

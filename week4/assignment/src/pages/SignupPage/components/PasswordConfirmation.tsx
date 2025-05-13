@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTheme } from '@emotion/react';
 import { inputStyle, signupButtonStyle } from '../SignupPage.styles';
-import type { PasswordStepProps } from '../interfaces/PasswordStep.interface';
+import type { PasswordConfirmationProps } from '../interfaces/SignupStepProps';
 
-const PasswordStep: React.FC<PasswordStepProps> = ({
+const PasswordConfirmation: React.FC<PasswordConfirmationProps> = ({
   password,
   confirm,
   onChangePassword,
@@ -39,4 +39,4 @@ const PasswordStep: React.FC<PasswordStepProps> = ({
   );
 };
 
-export default PasswordStep; 
+export default PasswordConfirmation; 

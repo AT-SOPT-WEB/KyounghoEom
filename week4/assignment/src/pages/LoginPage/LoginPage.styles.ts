@@ -29,7 +29,7 @@ export const buttonStyle = (theme: Theme) => css`
   width: ${theme.sizes.buttonWidth};
   padding: ${theme.spacing.small};
   background-color: ${theme.colors.primary};
-  color: #fff;
+  color: ${theme.colors.white};
   border: none;
   cursor: pointer;
   &:hover {
