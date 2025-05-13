@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { css, useTheme } from '@emotion/react';
-import type { Theme } from '@emotion/react';
+import { useTheme } from '@emotion/react';
+import { containerStyle, titleStyle, inputStyle, loginButtonStyle, signupButtonStyle } from './LoginPage.styles';
 
 interface LoginPageProps {
   onLoginSuccess: (userId: string) => void;
@@ -48,52 +48,4 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigateSignup 
   );
 };
 
-export default LoginPage;
-
-const containerStyle = (theme: Theme) => css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  gap: 1rem;
-  background-color: ${theme.colors.background};
-`;
-
-const titleStyle = (theme: Theme) => css`
-  font-size: 2rem;
-  color: ${theme.colors.primary};
-`;
-
-const inputStyle = css`
-  width: 300px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-`;
-
-const loginButtonStyle = (theme: Theme) => css`
-  width: 320px;
-  padding: 0.7rem;
-  background-color: ${theme.colors.primary};
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background-color: ${theme.colors.secondary};
-  }
-`;
-
-const signupButtonStyle = (theme: Theme) => css`
-  width: 320px;
-  padding: 0.7rem;
-  background-color: ${theme.colors.secondary};
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background-color: ${theme.colors.primary};
-  }
-`; 
+export default LoginPage; 

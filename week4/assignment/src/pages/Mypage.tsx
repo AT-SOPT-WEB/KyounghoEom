@@ -1,6 +1,6 @@
 import React from 'react';
-import { css, useTheme } from '@emotion/react';
-import type { Theme } from '@emotion/react';
+import { useTheme } from '@emotion/react';
+import { containerStyle, titleStyle, messageStyle } from './Mypage.styles';
 
 interface MypageProps {
   userId: string;
@@ -16,25 +16,4 @@ const Mypage: React.FC<MypageProps> = ({ userId }) => {
   );
 };
 
-export default Mypage;
-
-const containerStyle = (theme: Theme) => css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  gap: 1rem;
-  background-color: ${theme.colors.background};
-`;
-
-const titleStyle = (theme: Theme) => css`
-  font-size: 2rem;
-  color: ${theme.colors.primary};
-`;
-
-const messageStyle = (theme: Theme) => css`
-  font-size: 1.2rem;
-  color: ${theme.colors.text};
-`; 
+export default Mypage; 
