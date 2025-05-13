@@ -8,7 +8,7 @@ export const theme = {
     divider: '#e0e0e0',
   },
   sizes: {
-    fullWidth: '100vw',
+    fullWidth: '100%',
     fullHeight: '100vh',
     inputWidth: '300px',
     buttonWidth: '320px',

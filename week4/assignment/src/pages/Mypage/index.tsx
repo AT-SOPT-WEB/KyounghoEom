@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@emotion/react';
 import { containerStyle, headerStyle, tabStyle, nicknameStyle, titleStyle, messageStyle } from './Mypage.styles';
-import type { PageHeaderProps } from '../PageHeaderProps';
+import type { PageHeaderProps } from '../UserListPage/interfaces/PageHeaderProps';
 import { getMyProfile, updateMyNickname } from '../../services/userApi';
 import { inputStyle, signupButtonStyle } from '../SignupPage/SignupPage.styles';
 

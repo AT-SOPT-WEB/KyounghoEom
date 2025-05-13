@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@emotion/react';
-import type { PageHeaderProps } from '../PageHeaderProps';
-import { headerStyle, tabStyle, nicknameStyle, containerStyle, titleStyle, listStyle } from './UserListPage.styles';
+import type { PageHeaderProps } from './interfaces/PageHeaderProps';
+import PageHeader from './PageHeader';
+import { containerStyle, titleStyle, listStyle } from './UserListPage.styles';
 import { inputStyle, signupButtonStyle } from '../SignupPage/SignupPage.styles';
 import { getAllUsers, searchUsers } from '../../services/userApi';
 
@@ -29,14 +30,12 @@ const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateI
 
   return (
     <>
-      <header css={headerStyle(theme)}>
-        <nav>
-          <span css={tabStyle(theme)} onClick={onNavigateInfo}>내 정보</span>
-          <span css={tabStyle(theme)} onClick={onNavigateUserList}>회원 조회</span>
-          <span css={tabStyle(theme)} onClick={() => { localStorage.removeItem('userId'); onLogout(); }}>로그아웃</span>
-        </nav>
-        <div css={nicknameStyle(theme)}>{userId}님</div>
-      </header>
+      <PageHeader
+        userId={userId}
+        onLogout={onLogout}
+        onNavigateInfo={onNavigateInfo}
+        onNavigateUserList={onNavigateUserList}
+      />
       <div css={containerStyle(theme)}>
         <h1 css={titleStyle(theme)}>회원 조회</h1>
         <input
