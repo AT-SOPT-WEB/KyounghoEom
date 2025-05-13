@@ -12,30 +12,37 @@ export interface AuthResponse {
 export interface ApiResponse<T> { success: boolean; code: string; message: string; data: T; }
 
 // 회원가입
-export const signUp = async (id: string, password: string, nickname: string): Promise<boolean> => {
-  const res = await axiosInstance.post<ApiResponse<null>>('/api/v1/auth/signup', { id, password, nickname });
-  return res.data.success;
+export const signUp = async (loginId: string, password: string, nickname: string): Promise<number> => {
+  const res = await axiosInstance.post<ApiResponse<{ userId: number; nickname: string }>>(
+    '/api/v1/auth/signup',
+    { loginId, password, nickname }
+  );
+  if (!res.data.success) throw new Error(res.data.message);
+  return res.data.data.userId;
 };
 
 // 로그인
-export const signIn = async (id: string, password: string): Promise<string> => {
-  const res = await axiosInstance.post<ApiResponse<{ token: string }>>('/api/v1/auth/signin', { id, password });
+export const signIn = async (loginId: string, password: string): Promise<string> => {
+  const res = await axiosInstance.post<ApiResponse<{ token: string }>>(
+    '/api/v1/auth/signin',
+    { loginId, password }
+  );
   if (!res.data.success) throw new Error(res.data.message);
   return res.data.data.token;
 };
 
 // 내 닉네임 조회
-export const getMyProfile = async (): Promise<User> => {
-  const res = await axiosInstance.get<ApiResponse<User>>('/api/v1/users/me');
+export const getMyProfile = async (): Promise<string> => {
+  const res = await axiosInstance.get<ApiResponse<{ nickname: string }>>('/api/v1/users/me');
   if (!res.data.success) throw new Error(res.data.message);
-  return res.data.data;
+  return res.data.data.nickname;
 };
 
 // 닉네임 조회
-export const getAllUsers = async (): Promise<User[]> => {
-  const res = await axiosInstance.get<ApiResponse<User[]>>('/api/v1/users');
+export const getAllUsers = async (): Promise<string[]> => {
+  const res = await axiosInstance.get<ApiResponse<{ nicknameList: string[] }>>('/api/v1/users');
   if (!res.data.success) throw new Error(res.data.message);
-  return res.data.data;
+  return res.data.data.nicknameList;
 };
 
 // 닉네임 수정
@@ -45,8 +52,10 @@ export const updateMyNickname = async (nickname: string): Promise<boolean> => {
 };
 
 // 검색 (query 파라미터 사용)
-export const searchUsers = async (query: string): Promise<User[]> => {
-  const res = await axiosInstance.get<ApiResponse<User[]>>('/api/v1/users?search=' + encodeURIComponent(query));
+export const searchUsers = async (keyword: string): Promise<string[]> => {
+  const res = await axiosInstance.get<ApiResponse<{ nicknameList: string[] }>>(
+    '/api/v1/users?keyword=' + encodeURIComponent(keyword)
+  );
   if (!res.data.success) throw new Error(res.data.message);
-  return res.data.data;
+  return res.data.data.nicknameList;
 }; 
