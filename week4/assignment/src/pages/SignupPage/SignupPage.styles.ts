@@ -23,16 +23,29 @@ export const inputStyle = (theme: Theme) => css`
   border: 1px solid #ccc;
   border-radius: ${theme.borderRadius};
   font-size: ${theme.fontSizes.input};
+  margin-bottom: ${theme.spacing.xsmall};
 `;
 
-export const buttonStyle = (theme: Theme) => css`
+export const signupButtonStyle = (theme: Theme) => css`
   width: ${theme.sizes.buttonWidth};
   padding: ${theme.spacing.small};
   background-color: ${theme.colors.primary};
   color: #fff;
   border: none;
   cursor: pointer;
+  margin-bottom: ${theme.spacing.small};
   &:hover {
     background-color: ${theme.colors.secondary};
   }
 `;
+
+export const backButtonStyle = (theme: Theme) => css`
+  padding: ${theme.spacing.small} ${theme.spacing.large};
+  background-color: ${theme.colors.secondary};
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: ${theme.colors.primary};
+  }
+`; 

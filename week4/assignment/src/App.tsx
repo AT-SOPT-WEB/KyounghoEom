@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import Mypage from './pages/Mypage';
+import LoginPage from './pages/LoginPage/LoginPage.index';
+import SignupPage from './pages/SignupPage/SignupPage.index';
+import Mypage from './pages/Mypage/MyPage.index';
 
 const App: React.FC = () => {
   const [page, setPage] = useState<'login' | 'signup' | 'mypage'>('login');

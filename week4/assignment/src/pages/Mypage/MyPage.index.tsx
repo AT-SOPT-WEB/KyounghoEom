@@ -1,10 +1,7 @@
 import React from 'react';
 import { useTheme } from '@emotion/react';
 import { containerStyle, titleStyle, messageStyle } from './Mypage.styles';
-
-interface MypageProps {
-  userId: string;
-}
+import type { MypageProps } from './interfaces/Mypage.interface';
 
 const Mypage: React.FC<MypageProps> = ({ userId }) => {
   const theme = useTheme();

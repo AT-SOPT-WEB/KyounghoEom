@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
-
-import { containerStyle, titleStyle, inputStyle,  buttonStyle } from './LoginPage.styles';
-
-interface LoginPageProps {
-  onLoginSuccess: (userId: string) => void;
-  onNavigateSignup: () => void;
-}
+import { containerStyle, titleStyle, inputStyle, buttonStyle } from './LoginPage.styles';
+import type { LoginPageProps } from './interfaces/LoginPage.interface';
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigateSignup }) => {
   const theme = useTheme();

@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { containerStyle, titleStyle, backButtonStyle, inputStyle, signupButtonStyle } from './SignupPage.styles';
-
-interface SignupPageProps {
-  onBack: () => void;
-}
-
-// 회원가입 단계 관리용 enum
-enum SignupStep {
-  EnterId = 0,
-  EnterPassword = 1,
-}
+import type { SignupPageProps } from './interfaces/SignupPage.interface';
+import { SignupStep } from './types/SignupStep.enum';
 
 const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
   const theme = useTheme();
@@ -23,7 +15,6 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
       alert('모든 필드를 입력하세요');
       return;
     }
-    // 로컬스토리지에 회원 정보 저장 (예시)
     const users = JSON.parse(localStorage.getItem('users') || '{}');
     users[id] = { password };
     localStorage.setItem('users', JSON.stringify(users));
@@ -37,7 +28,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
       {step === SignupStep.EnterId && (
         <>
           <input
-            css={inputStyle}
+            css={inputStyle(theme)}
             type="text"
             placeholder="아이디"
             value={id}
@@ -55,7 +46,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
       {step === SignupStep.EnterPassword && (
         <>
           <input
-            css={inputStyle}
+            css={inputStyle(theme)}
             type="password"
             placeholder="비밀번호"
             value={password}
@@ -72,7 +63,9 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
       )}
       <button
         css={backButtonStyle(theme)}
-        onClick={step === SignupStep.EnterId ? onBack : () => setStep(SignupStep.EnterId)}
+        onClick={
+          step === SignupStep.EnterId ? onBack : () => setStep(SignupStep.EnterId)
+        }
       >
         {step === SignupStep.EnterId ? '로그인으로' : '이전'}
       </button>
