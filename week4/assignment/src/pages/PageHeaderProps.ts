@@ -1,4 +1,4 @@
-export interface MypageProps {
+export interface PageHeaderProps {
   userId: string;
   onLogout: () => void;
   onNavigateInfo: () => void;

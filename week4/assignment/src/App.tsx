@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import Mypage from './pages/Mypage';
+import UserListPage from './pages/UserListPage';
 import { useAuth } from './hooks/useAuth';
 
 const App: React.FC = () => {
@@ -18,6 +19,21 @@ const App: React.FC = () => {
         element={
           userId ? (
             <Mypage
+              userId={userId}
+              onLogout={logout}
+              onNavigateInfo={() => navigate('/mypage')}
+              onNavigateUserList={() => navigate('/users')}
+            />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          userId ? (
+            <UserListPage
               userId={userId}
               onLogout={logout}
               onNavigateInfo={() => navigate('/mypage')}
