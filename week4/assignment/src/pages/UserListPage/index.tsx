@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import type { PageHeaderProps } from '../PageHeaderProps';
 import { headerStyle, tabStyle, nicknameStyle, containerStyle, titleStyle, listStyle } from './UserListPage.styles';
 import { getUser } from '../../services/userService';
+import { inputStyle, signupButtonStyle } from '../SignupPage/SignupPage.styles';
 
 const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateInfo, onNavigateUserList }) => {
   const theme = useTheme();
@@ -10,6 +11,20 @@ const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateI
   const users = Object.entries(usersObj) as [string, { password: string; nickname?: string }][];
   const current = getUser(userId);
   const nickname = current?.nickname || userId;
+  const [search, setSearch] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState(users);
+
+  const handleSearch = () => {
+    if (!search.trim()) {
+      setFilteredUsers(users);
+    } else {
+      setFilteredUsers(
+        users.filter(([id, user]) =>
+          id.includes(search) || user.nickname?.includes(search)
+        )
+      );
+    }
+  };
 
   return (
     <>
@@ -23,8 +38,18 @@ const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateI
       </header>
       <div css={containerStyle(theme)}>
         <h1 css={titleStyle(theme)}>회원 조회</h1>
+        <input
+          css={inputStyle(theme)}
+          type="text"
+          placeholder="검색어 입력"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button css={signupButtonStyle(theme)} onClick={handleSearch}>
+          확인
+        </button>
         <ul css={listStyle(theme)}>
-          {users.map(([id, user]) => (
+          {filteredUsers.map(([id, user]) => (
             <li key={id}>{user.nickname || id} ({id})</li>
           ))}
         </ul>
