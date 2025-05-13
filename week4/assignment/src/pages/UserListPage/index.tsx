@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
+  import React, { useState, useEffect } from 'react';
 import { useTheme } from '@emotion/react';
 import type { PageHeaderProps } from '../PageHeaderProps';
 import { headerStyle, tabStyle, nicknameStyle, containerStyle, titleStyle, listStyle } from './UserListPage.styles';
-import { getUser } from '../../services/userService';
 import { inputStyle, signupButtonStyle } from '../SignupPage/SignupPage.styles';
+import { listUsers, searchUsers, User } from '../../services/userApi';
 
 const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateInfo, onNavigateUserList }) => {
   const theme = useTheme();
-  const usersObj = JSON.parse(localStorage.getItem('users') || '{}');
-  const users = Object.entries(usersObj) as [string, { password: string; nickname?: string }][];
-  const current = getUser(userId);
-  const nickname = current?.nickname || userId;
+  const [users, setUsers] = useState<User[]>([]);
   const [search, setSearch] = useState('');
-  const [filteredUsers, setFilteredUsers] = useState(users);
+  const [loading, setLoading] = useState(false);
 
-  const handleSearch = () => {
-    if (!search.trim()) {
-      setFilteredUsers(users);
-    } else {
-      setFilteredUsers(
-        users.filter(([id, user]) =>
-          id.includes(search) || user.nickname?.includes(search)
-        )
-      );
+  const fetchUsers = async (query?: string) => {
+    setLoading(true);
+    try {
+      const data = query ? await searchUsers(query) : await listUsers();
+      setUsers(data);
+    } catch {
+      alert('회원 목록 조회에 실패했습니다');
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <>
@@ -34,7 +35,7 @@ const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateI
           <span css={tabStyle(theme)} onClick={onNavigateUserList}>회원 조회</span>
           <span css={tabStyle(theme)} onClick={() => { localStorage.removeItem('userId'); onLogout(); }}>로그아웃</span>
         </nav>
-        <div css={nicknameStyle(theme)}>{nickname}님</div>
+        <div css={nicknameStyle(theme)}>{userId}님</div>
       </header>
       <div css={containerStyle(theme)}>
         <h1 css={titleStyle(theme)}>회원 조회</h1>
@@ -45,14 +46,18 @@ const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateI
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button css={signupButtonStyle(theme)} onClick={handleSearch}>
+        <button css={signupButtonStyle(theme)} onClick={() => fetchUsers(search)} disabled={loading}>
           확인
         </button>
-        <ul css={listStyle(theme)}>
-          {filteredUsers.map(([id, user]) => (
-            <li key={id}>{user.nickname || id} ({id})</li>
-          ))}
-        </ul>
+        {loading ? (
+          <p>로딩 중...</p>
+        ) : (
+          <ul css={listStyle(theme)}>
+            {users.map((user) => (
+              <li key={user.id}>{user.nickname || user.id} ({user.id})</li>
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );
