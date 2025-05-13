@@ -3,6 +3,7 @@ import { useTheme } from '@emotion/react';
 import { containerStyle, titleStyle, backButtonStyle, inputStyle, signupButtonStyle } from './SignupPage.styles';
 import type { SignupPageProps } from './interfaces/SignupPage.interface';
 import { SignupStep } from './types/SignupStep.enum';
+import { saveUser } from '../../services/userService';
 
 const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
   const theme = useTheme();
@@ -15,9 +16,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack }) => {
       alert('모든 필드를 입력하세요');
       return;
     }
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    users[id] = { password };
-    localStorage.setItem('users', JSON.stringify(users));
+    saveUser(id, password);
     alert('회원가입이 완료되었습니다');
     onBack();
   };
