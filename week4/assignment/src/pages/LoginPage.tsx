@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
-import { containerStyle, titleStyle, inputStyle, loginButtonStyle, signupButtonStyle } from './LoginPage.styles';
+
+import { containerStyle, titleStyle, inputStyle,  buttonStyle } from './LoginPage.styles';
 
 interface LoginPageProps {
   onLoginSuccess: (userId: string) => void;
@@ -25,23 +26,23 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigateSignup 
     <div css={containerStyle(theme)}>
       <h1 css={titleStyle(theme)}>로그인</h1>
       <input
-        css={inputStyle}
+        css={inputStyle(theme)}
         type="text"
         placeholder="아이디"
         value={id}
         onChange={(e) => setId(e.target.value)}
       />
       <input
-        css={inputStyle}
+        css={inputStyle(theme)}
         type="password"
         placeholder="비밀번호"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button css={loginButtonStyle(theme)} onClick={handleLogin}>
+      <button css={buttonStyle(theme)} onClick={handleLogin}>
         로그인
       </button>
-      <button css={signupButtonStyle(theme)} onClick={onNavigateSignup}>
+      <button css={buttonStyle(theme)} onClick={onNavigateSignup}>
         회원가입
       </button>
     </div>

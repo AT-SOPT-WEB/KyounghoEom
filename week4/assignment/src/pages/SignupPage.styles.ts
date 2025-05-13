@@ -6,19 +6,19 @@ export const containerStyle = (theme: Theme) => css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  gap: 1rem;
+  width: ${theme.sizes.fullWidth};
+  height: ${theme.sizes.fullHeight};
+  gap: ${theme.spacing.medium};
   background-color: ${theme.colors.background};
 `;
 
 export const titleStyle = (theme: Theme) => css`
-  font-size: 2rem;
+  font-size: ${theme.fontSizes.title};
   color: ${theme.colors.primary};
 `;
 
 export const backButtonStyle = (theme: Theme) => css`
-  padding: 0.7rem 1.2rem;
+  padding: ${theme.spacing.small} ${theme.spacing.large};
   background-color: ${theme.colors.secondary};
   color: #fff;
   border: none;
@@ -28,23 +28,23 @@ export const backButtonStyle = (theme: Theme) => css`
   }
 `;
 
-export const inputStyle = css`
-  width: 300px;
-  padding: 0.5rem;
+export const inputStyle = (theme: Theme) => css`
+  width: ${theme.sizes.inputWidth};
+  padding: ${theme.spacing.xsmall};
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  border-radius: ${theme.borderRadius};
+  font-size: ${theme.fontSizes.input};
+  margin-bottom: ${theme.spacing.xsmall};
 `;
 
 export const signupButtonStyle = (theme: Theme) => css`
-  width: 320px;
-  padding: 0.7rem;
+  width: ${theme.sizes.buttonWidth};
+  padding: ${theme.spacing.small};
   background-color: ${theme.colors.primary};
   color: #fff;
   border: none;
   cursor: pointer;
-  margin-bottom: 0.5rem;
+  margin-bottom: ${theme.spacing.small};
   &:hover {
     background-color: ${theme.colors.secondary};
   }
