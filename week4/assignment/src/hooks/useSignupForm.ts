@@ -47,16 +47,18 @@ export function useSignupForm(onBack: () => void) {
     }
     try {
       await signUp(id, password, nickname);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       if (axios.isAxiosError(error) && error.response?.status === 409) {
         alert('이미 사용 중인 아이디입니다');
-      } else {
+      } else if (error instanceof Error) {
         alert(`회원가입에 실패했습니다: ${error.message}`);
+      } else {
+        alert('회원가입에 실패했습니다');
       }
       return;
     }
-    alert('회원가입이 완료되었습니다');
+    alert(`회원가입이 완료되었습니다: ${nickname}`);
     onBack();
   };
 

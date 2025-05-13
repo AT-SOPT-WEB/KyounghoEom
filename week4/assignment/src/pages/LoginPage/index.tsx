@@ -21,7 +21,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       onLoginSuccess(userId.toString());
       navigate('/mypage');
     } catch (error: any) {
-      alert(error.message || '로그인에 실패했습니다');
+      const message = error instanceof Error ? error.message : '로그인에 실패했습니다';
+      alert(message);
     }
   };
 
