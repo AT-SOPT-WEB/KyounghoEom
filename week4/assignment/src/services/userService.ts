@@ -1,6 +1,6 @@
-export const saveUser = (id: string, password: string): void => {
+export const saveUser = (id: string, password: string, nickname?: string): void => {
   const users = JSON.parse(localStorage.getItem('users') || '{}');
-  users[id] = { password };
+  users[id] = { password, nickname };
   localStorage.setItem('users', JSON.stringify(users));
 };
 
