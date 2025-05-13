@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import Mypage from './pages/Mypage';
@@ -7,6 +7,7 @@ import { useAuth } from './hooks/useAuth';
 
 const App: React.FC = () => {
   const { userId, login, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <Routes>
@@ -19,8 +20,8 @@ const App: React.FC = () => {
             <Mypage
               userId={userId}
               onLogout={logout}
-              onNavigateInfo={() => {}}
-              onNavigateUserList={() => {}}
+              onNavigateInfo={() => navigate('/mypage')}
+              onNavigateUserList={() => navigate('/users')}
             />
           ) : (
             <Navigate to="/login" />
