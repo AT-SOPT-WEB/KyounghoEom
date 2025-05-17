@@ -20,8 +20,8 @@ function App() {
       <button onClick={() => refetch()}>조회하기</button>
       {isLoading && <div>Loading...</div>}
       {isError && <div>Error</div>}
-      {data?.map((nick: string) => (
-        <div key={nick}>{nick}</div>
+      {data?.map((nick: string, idx: number) => (
+        <div key={idx}>{nick}</div>
       ))}
     </div>
   );
