@@ -1,6 +1,6 @@
 .github-profile-card {
   position: relative;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 1rem;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
   padding: 2.5rem 1.5rem 1.5rem 1.5rem;
@@ -20,13 +20,13 @@
   width: auto;
   height: auto;
   font-size: 1.5rem;
-  color: #888;
+  color: var(--color-secondary);
   cursor: pointer;
   transition: color 0.15s;
-  z-index: 2;
+  z-index: var(--z-close-btn);
 }
 .close-btn:hover {
-  color: #1976d2;
+  color: var(--color-primary);
   background: none;
 }
 .profile-avatar {
@@ -43,7 +43,7 @@
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
-input[placeholder="깃허브 아이디를 입력하세요"] {
+.github-search-input {
   min-width: 250px;
   max-width: 320px;
   width: 100%;

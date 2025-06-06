@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from './Spinner';
+import { GitHubUser, UserInfoState } from '../types/github';
+import { LIMITS } from '../constants';
 import './GithubSearch.css';
 
 const GithubSearch: React.FC = () => {
@@ -8,7 +10,7 @@ const GithubSearch: React.FC = () => {
     const stored = localStorage.getItem('recentSearches');
     return stored ? JSON.parse(stored) : [];
   });
-  const [userInfo, setUserInfo] = useState<{ status: 'idle'|'pending'|'resolved'|'rejected'; data: any }>({ status: 'idle', data: null });
+  const [userInfo, setUserInfo] = useState<UserInfoState>({ status: 'idle', data: null });
 
   useEffect(() => {
     localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
@@ -19,25 +21,21 @@ const GithubSearch: React.FC = () => {
     try {
       const response = await fetch(`https://api.github.com/users/${user}`);
       if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json();
+      const data: GitHubUser = await response.json();
       setUserInfo({ status: 'resolved', data });
     } catch {
       setUserInfo({ status: 'rejected', data: null });
     }
   };
 
-  const handleSearch = (user: string) => {
-    getUserInfo(user);
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!username) return;
-    handleSearch(username);
+    if (!username.trim()) return;
+    getUserInfo(username.trim());
     setRecentSearches(prev => {
-      if (prev.includes(username)) return prev;
-      const updated = [...prev, username];
-      return updated.length > 3 ? updated.slice(updated.length - 3) : updated;
+      if (prev.includes(username.trim())) return prev;
+      const updated = [...prev, username.trim()];
+      return updated.length > LIMITS.MAX_RECENT_SEARCHES ? updated.slice(updated.length - LIMITS.MAX_RECENT_SEARCHES) : updated;
     });
     setUsername('');
   };
@@ -50,6 +48,8 @@ const GithubSearch: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <input
+          type="text"
+          className="github-search-input"
           placeholder="깃허브 아이디를 입력하세요"
           value={username}
           onChange={e => setUsername(e.target.value)}
@@ -59,7 +59,7 @@ const GithubSearch: React.FC = () => {
       <ul>
         {recentSearches.map(name => (
           <li key={name}>
-            <button type="button" onClick={() => handleSearch(name)}>{name}</button>
+            <button type="button" onClick={() => getUserInfo(name)}>{name}</button>
             <button type="button" onClick={() => handleDelete(name)}>x</button>
           </li>
         ))}

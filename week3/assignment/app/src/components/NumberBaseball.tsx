@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { LIMITS, TIMING } from '../constants'
+import { startCountdown } from '../utils/countdown'
 
 const NumberBaseball: React.FC = () => {
   const generateAnswer = (): string => {
     const digits = Array.from({ length: 10 }, (_, i) => i.toString())
     let res = ''
-    while (res.length < 3) {
+    while (res.length < LIMITS.NUMBER_LENGTH) {
       const idx = Math.floor(Math.random() * digits.length)
       res += digits.splice(idx, 1)[0]
     }
@@ -30,7 +32,7 @@ const NumberBaseball: React.FC = () => {
   const calculateSB = (g: string, a: string): [number, number] => {
     let s = 0
     let b = 0
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < LIMITS.NUMBER_LENGTH; i++) {
       if (g[i] === a[i]) s++
       else if (a.includes(g[i])) b++
     }
@@ -39,14 +41,14 @@ const NumberBaseball: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (tries >= 10) return
+    if (tries >= LIMITS.MAX_ATTEMPTS) return
 
     if (!/^\d{3}$/.test(guess)) {
       setMessage('숫자 3글자를 입력하세요')
       setGuess('')
       return
     }
-    if (new Set(guess).size !== 3) {
+    if (new Set(guess).size !== LIMITS.NUMBER_LENGTH) {
       setMessage('중복 없이 3글자를 입력하세요')
       setGuess('')
       return
@@ -58,30 +60,12 @@ const NumberBaseball: React.FC = () => {
     setAttempts(prev => [...prev, { guess, result: resultStr }])
     setTries(nextTry)
 
-    if (s === 3) {
+    if (s === LIMITS.NUMBER_LENGTH) {
       setMessage('정답!')
-      let count = 3
-      console.log('카운트다운 시작')
-      countdownRef.current = window.setInterval(() => {
-        console.log(count)
-        count--
-        if (count === 0 && countdownRef.current) {
-          clearInterval(countdownRef.current)
-        }
-      }, 1000)
-      timeoutRef.current = setTimeout(resetGame, 3000)
-    } else if (nextTry >= 10) {
+      startCountdown(TIMING.SUCCESS_RESET, resetGame, countdownRef, timeoutRef)
+    } else if (nextTry >= LIMITS.MAX_ATTEMPTS) {
       setMessage(`패배... 정답은 ${answer}`)
-      let failCount = 5
-      console.log('카운트다운 시작')
-      countdownRef.current = window.setInterval(() => {
-        console.log(failCount)
-        failCount--
-        if (failCount === 0 && countdownRef.current) {
-          clearInterval(countdownRef.current)
-        }
-      }, 1000)
-      timeoutRef.current = setTimeout(resetGame, 5000)
+      startCountdown(TIMING.FAILURE_RESET, resetGame, countdownRef, timeoutRef)
     } else {
       setMessage(resultStr)
     }
@@ -103,10 +87,11 @@ const NumberBaseball: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <input
+          type="text"
           placeholder="3자리 숫자 입력"
           value={guess}
           onChange={e => setGuess(e.target.value)}
-          maxLength={3}
+          maxLength={LIMITS.NUMBER_LENGTH}
         />
         <button type="submit">확인</button>
       </form>
