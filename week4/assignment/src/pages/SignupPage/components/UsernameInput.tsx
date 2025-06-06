@@ -1,9 +1,16 @@
-import React from 'react';
 import { useTheme } from '@emotion/react';
 import { inputStyle, signupButtonStyle } from '../SignupPage.styles';
-import type { UsernameInputProps } from '../interfaces/SignupStepProps';
 
-const UsernameInput: React.FC<UsernameInputProps> = ({ id, onChange, onNext }) => {
+interface StepProps {
+  onNext: () => void;
+}
+
+interface UsernameInputProps extends StepProps {
+  id: string;
+  onChange: (value: string) => void;
+}
+
+const UsernameInput = ({ id, onChange, onNext }: UsernameInputProps) => {
   const theme = useTheme();
   const isTooLong = id.length > 20;
   return (

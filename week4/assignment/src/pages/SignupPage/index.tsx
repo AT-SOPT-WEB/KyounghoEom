@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -10,8 +9,9 @@ import { useSignupForm } from '../../hooks/useSignupForm';
 import UsernameInput from './components/UsernameInput';
 import PasswordConfirmation from './components/PasswordConfirmation';
 import NicknameInput from './components/NicknameInput';
+import { ROUTES } from '../../constants';
 
-const SignupPage: React.FC = () => {
+const SignupPage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const {
@@ -26,7 +26,7 @@ const SignupPage: React.FC = () => {
     prevStep,
     prevLabel,
     handleRegister,
-  } = useSignupForm(() => navigate('/login'));
+  } = useSignupForm(() => navigate(ROUTES.LOGIN));
 
   return (
     <div css={containerStyle(theme)}>

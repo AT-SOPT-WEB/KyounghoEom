@@ -1,20 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { STORAGE_KEYS, ROUTES } from '../constants';
 
 export function useAuth() {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState<string | null>(() => localStorage.getItem('userId'));
+  const [userId, setUserId] = useState<string | null>(() => localStorage.getItem(STORAGE_KEYS.USER_ID));
 
   const login = useCallback((id: string) => {
-    localStorage.setItem('userId', id);
+    localStorage.setItem(STORAGE_KEYS.USER_ID, id);
     setUserId(id);
-    navigate('/mypage');
+    navigate(ROUTES.MYPAGE);
   }, [navigate]);
 
   const logout = useCallback(() => {
-    localStorage.removeItem('userId');
+    localStorage.removeItem(STORAGE_KEYS.USER_ID);
     setUserId(null);
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   }, [navigate]);
 
   return { userId, login, logout };

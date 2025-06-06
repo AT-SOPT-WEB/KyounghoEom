@@ -1,11 +1,13 @@
+import { STORAGE_KEYS } from '../constants';
+
 export const saveUser = (id: string, password: string, nickname?: string): void => {
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
+  const users = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '{}');
   users[id] = { password, nickname };
-  localStorage.setItem('users', JSON.stringify(users));
+  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
 };
 
 export const getUser = (id: string): { password: string; nickname?: string } | null => {
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
+  const users = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '{}');
   return users[id] ?? null;
 };
 
@@ -15,5 +17,5 @@ export const loginUser = (id: string, password: string): boolean => {
 };
 
 export const setCurrentUser = (id: string): void => {
-  localStorage.setItem('userId', id);
+  localStorage.setItem(STORAGE_KEYS.USER_ID, id);
 };

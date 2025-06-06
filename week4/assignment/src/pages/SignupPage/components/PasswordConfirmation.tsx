@@ -1,9 +1,39 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import { inputStyle, signupButtonStyle } from '../SignupPage.styles';
-import type { PasswordConfirmationProps } from '../interfaces/SignupStepProps';
 
-const PasswordConfirmation: React.FC<PasswordConfirmationProps> = ({
+interface StepProps {
+  onNext: () => void;
+}
+
+interface PasswordConfirmationProps extends StepProps {
+  password: string;
+  confirm: string;
+  onChangePassword: (value: string) => void;
+  onChangeConfirm: (value: string) => void;
+}
+
+const passwordContainerStyle = css`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const toggleButtonStyle = css`
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 4px;
+`;
+
+const errorMessageStyle = css`
+  color: red;
+  margin: 0.5rem 0;
+`;
+
+const PasswordConfirmation = ({
   password,
   confirm,
   onChangePassword,
@@ -18,7 +48,7 @@ const PasswordConfirmation: React.FC<PasswordConfirmationProps> = ({
   const disabled = !password || !confirm || isMismatch || isLengthExceeded;
   return (
     <>
-      <div>
+      <div css={passwordContainerStyle}>
         <input
           css={inputStyle(theme)}
           type={showPassword ? 'text' : 'password'}
@@ -26,11 +56,11 @@ const PasswordConfirmation: React.FC<PasswordConfirmationProps> = ({
           value={password}
           onChange={(e) => onChangePassword(e.target.value)}
         />
-        <button type="button" onClick={() => setShowPassword((s) => !s)}>
+        <button type="button" onClick={() => setShowPassword((s) => !s)} css={toggleButtonStyle}>
           {showPassword ? '숨기기' : '보기'}
         </button>
       </div>
-      <div>
+      <div css={passwordContainerStyle}>
         <input
           css={inputStyle(theme)}
           type={showConfirm ? 'text' : 'password'}
@@ -38,17 +68,17 @@ const PasswordConfirmation: React.FC<PasswordConfirmationProps> = ({
           value={confirm}
           onChange={(e) => onChangeConfirm(e.target.value)}
         />
-        <button type="button" onClick={() => setShowConfirm((s) => !s)}>
+        <button type="button" onClick={() => setShowConfirm((s) => !s)} css={toggleButtonStyle}>
           {showConfirm ? '숨기기' : '보기'}
         </button>
       </div>
       {isLengthExceeded && (
-        <p style={{ color: 'red', margin: '0.5rem 0' }}>
+        <p css={errorMessageStyle}>
           비밀번호는 20자 이하로 입력하세요
         </p>
       )}
       {!isLengthExceeded && isMismatch && (
-        <p style={{ color: 'red', margin: '0.5rem 0' }}>
+        <p css={errorMessageStyle}>
           비밀번호가 일치하지 않습니다
         </p>
       )}

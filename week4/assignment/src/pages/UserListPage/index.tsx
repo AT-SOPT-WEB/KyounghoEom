@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '@emotion/react';
-import type { PageHeaderProps } from './interfaces/PageHeaderProps';
 import PageHeader from './PageHeader';
 import { containerStyle, titleStyle, listStyle } from './UserListPage.styles';
 import { inputStyle, signupButtonStyle } from '../SignupPage/SignupPage.styles';
 import { getAllUsers, searchUsers } from '../../services/userApi';
 
-const UserListPage: React.FC<PageHeaderProps> = ({ userId, onLogout, onNavigateInfo, onNavigateUserList }) => {
+interface PageHeaderProps {
+  userId: string;
+  onLogout: () => void;
+  onNavigateInfo: () => void;
+  onNavigateUserList: () => void;
+}
+
+const UserListPage = ({ userId, onLogout, onNavigateInfo, onNavigateUserList }: PageHeaderProps) => {
   const theme = useTheme();
   const [users, setUsers] = useState<string[]>([]);
   const [search, setSearch] = useState('');

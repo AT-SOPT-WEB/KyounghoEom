@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { containerStyle, titleStyle, inputStyle, buttonStyle } from './LoginPage.styles';
-import type { LoginPageProps } from './interfaces/LoginPage.interface';
 import { signIn } from '../../services/userApi';
+import { ROUTES } from '../../constants';
 
-const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
+interface LoginPageProps {
+  onLoginSuccess: (userId: string) => void;
+}
+
+const LoginPage = ({ onLoginSuccess }: LoginPageProps) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [id, setId] = useState('');
@@ -19,8 +23,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     try {
       const userId = await signIn(id, password);
       onLoginSuccess(userId.toString());
-      navigate('/mypage');
-    } catch (error: any) {
+      navigate(ROUTES.MYPAGE);
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : '로그인에 실패했습니다';
       alert(message);
     }
@@ -46,7 +50,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       <button css={buttonStyle(theme)} onClick={handleLogin}>
         로그인
       </button>
-      <button css={buttonStyle(theme)} onClick={() => navigate('/signup')}>
+      <button css={buttonStyle(theme)} onClick={() => navigate(ROUTES.SIGNUP)}>
         회원가입
       </button>
     </div>
